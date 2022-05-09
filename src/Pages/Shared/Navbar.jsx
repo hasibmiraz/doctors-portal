@@ -1,32 +1,74 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const menuItem = (
     <>
       <li>
-        <Link to="/">Home</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
       </li>
       <li>
-        <Link to="/about">About</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/about"
+        >
+          About
+        </NavLink>
       </li>
       <li>
-        <Link to="/appointment">Appointment</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/appointment"
+        >
+          Appointment
+        </NavLink>
       </li>
       <li>
-        <Link to="/reviews">Reviews</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/reviews"
+        >
+          Reviews
+        </NavLink>
       </li>
       <li>
-        <Link to="/contact">Contact Us</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/contact"
+        >
+          Contact Us
+        </NavLink>
       </li>
       <li>
-        <Link to="/login">Login</Link>
+        <NavLink
+          className={({ isActive }) =>
+            isActive ? 'btn bg-black text-white mx-2' : ''
+          }
+          to="/login"
+        >
+          Login
+        </NavLink>
       </li>
     </>
   );
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 shadow-md">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex="0" className="btn btn-ghost lg:hidden">
