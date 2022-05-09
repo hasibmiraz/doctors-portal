@@ -2,13 +2,14 @@ import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
 
 const Navbar = () => {
+  const activeLinkDesign =
+    'btn bg-secondary text-white my-2 mx-0 md:my-0 md:mx-2 border-none';
+
   const menuItem = (
     <>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/"
         >
           Home
@@ -16,9 +17,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/about"
         >
           About
@@ -26,9 +25,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/appointment"
         >
           Appointment
@@ -36,9 +33,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/reviews"
         >
           Reviews
@@ -46,9 +41,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/contact"
         >
           Contact Us
@@ -56,9 +49,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink
-          className={({ isActive }) =>
-            isActive ? 'btn bg-black text-white mx-2' : ''
-          }
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/login"
         >
           Login
