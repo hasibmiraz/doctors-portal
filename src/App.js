@@ -1,9 +1,17 @@
+import { Route, Routes } from 'react-router-dom';
 import './App.css';
+import About from './Pages/About/About';
+import Home from './Pages/Home/Home';
+import Navbar from './Pages/Shared/Navbar';
 
 function App() {
   return (
     <div>
-      <h1 className="text-3xl font-bold">Working tailwind</h1>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   );
 }
