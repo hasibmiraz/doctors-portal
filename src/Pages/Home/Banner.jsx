@@ -3,7 +3,7 @@ import chair from '../../assets/images/chair.png';
 
 const Banner = () => {
   return (
-    <div>
+    <div style={{ backgroundImage: "url('../../assets/images/bg.png')" }}>
       <div class="hero min-h-screen">
         <div class="hero-content flex-col lg:flex-row-reverse">
           <img
