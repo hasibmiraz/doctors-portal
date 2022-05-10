@@ -1,9 +1,17 @@
 import React from 'react';
 import chair from '../../assets/images/chair.png';
+import bg from '../../assets/images/bg.png';
+import PrimaryButton from '../Shared/PrimaryButton';
 
 const Banner = () => {
   return (
-    <div style={{ backgroundImage: "url('../../assets/images/bg.png')" }}>
+    <div
+      style={{
+        backgroundImage: `url(${bg})`,
+        objectFit: 'cover',
+        backgroundPosition: 'center',
+      }}
+    >
       <div className="hero h-4/5 py-3 md:py-14">
         <div className="hero-content flex-col lg:flex-row-reverse">
           <img
@@ -18,11 +26,7 @@ const Banner = () => {
               excepturi exercitationem quasi. In deleniti eaque aut repudiandae
               et a id nisi.
             </p>
-            <div className="flex justify-center md:justify-start">
-              <button className="btn bg-gradient-to-r from-secondary to-primary text-white border-none uppercase font-bold">
-                Get Started
-              </button>
-            </div>
+            <PrimaryButton>Get Started</PrimaryButton>
           </div>
         </div>
       </div>

@@ -1,9 +1,10 @@
 import React from 'react';
 import treatment from '../../assets/images/treatment.png';
+import PrimaryButton from '../Shared/PrimaryButton';
 
 const Description = () => {
   return (
-    <div className="hero min-h-11/12 mt-14 md:mt-36">
+    <div className="hero min-h-11/12 mt-14 md:mt-36 md:mb-48">
       <div className="hero-content flex-col lg:flex-row">
         <img
           src={treatment}
@@ -22,11 +23,7 @@ const Description = () => {
             here', making it look like readable English. Many desktop publishing
             packages and web page
           </p>
-          <div className="flex justify-center md:justify-start">
-            <button className="btn bg-gradient-to-r from-secondary to-primary text-white border-none uppercase font-bold">
-              Get Started
-            </button>
-          </div>
+          <PrimaryButton>Get Started</PrimaryButton>
         </div>
       </div>
     </div>
