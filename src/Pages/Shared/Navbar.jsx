@@ -93,7 +93,7 @@ const Navbar = () => {
           <ul className="menu menu-horizontal p-0">{menuItem}</ul>
         </div>
         <div className="navbar-end">
-          <a href="!#" className="btn">
+          <a href="!#" className="btn btn-accent text-white">
             Get started
           </a>
         </div>
