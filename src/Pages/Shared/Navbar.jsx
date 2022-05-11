@@ -18,14 +18,6 @@ const Navbar = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? activeLinkDesign : '')}
-          to="/about"
-        >
-          About
-        </NavLink>
-      </li>
-      <li>
-        <NavLink
-          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           to="/appointment"
         >
           Appointment
@@ -45,6 +37,14 @@ const Navbar = () => {
           to="/contact"
         >
           Contact Us
+        </NavLink>
+      </li>
+      <li>
+        <NavLink
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
+          to="/about"
+        >
+          About
         </NavLink>
       </li>
       <li>
