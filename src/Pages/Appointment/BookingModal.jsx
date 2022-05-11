@@ -1,7 +1,14 @@
+import { format } from 'date-fns';
 import React from 'react';
 
-const BookingModal = ({ treatment }) => {
-  const { name } = treatment;
+const BookingModal = ({ treatment, setTreatment, date }) => {
+  const { name, slots } = treatment;
+
+  const handleBooking = (e) => {
+    e.preventDefault();
+    setTreatment(null);
+  };
+
   return (
     <div>
       <input type="checkbox" id="booking-modal" className="modal-toggle" />
@@ -16,15 +23,44 @@ const BookingModal = ({ treatment }) => {
           <h3 className="font-bold text-lg">
             Set appointment for: <span className="text-secondary">{name}</span>
           </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="booking-modal" className="btn">
-              Yay!
-            </label>
-          </div>
+          <form
+            onSubmit={handleBooking}
+            className="w-full flex flex-col items-center space-y-6 mt-10"
+          >
+            <input
+              type="text"
+              defaultValue={format(date, 'PP')}
+              disabled
+              className="input input-bordered w-full"
+            />
+            <select name="slot" className="select select-bordered w-full">
+              {slots.map((slot, i) => (
+                <option key={i} value={slot}>
+                  {slot}
+                </option>
+              ))}
+            </select>
+            <input
+              type="text"
+              placeholder="Full Name"
+              className="input input-bordered w-full"
+            />
+            <input
+              type="text"
+              placeholder="Phone Number"
+              className="input input-bordered w-full"
+            />
+            <input
+              type="email"
+              placeholder="Email"
+              className="input input-bordered w-full"
+            />
+            <input
+              type="submit"
+              className="btn btn-secondary text-white w-full hover:scale-95 duration-200"
+              value="Submit"
+            />
+          </form>
         </div>
       </div>
     </div>
