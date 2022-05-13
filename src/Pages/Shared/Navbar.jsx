@@ -1,9 +1,13 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link, NavLink } from 'react-router-dom';
+import auth from '../../firebase.init';
 
 const Navbar = () => {
   const activeLinkDesign =
     'btn bg-secondary text-white my-2 mx-0 md:my-0 md:mx-2 border-none';
+  const [user] = useAuthState(auth);
 
   const menuItem = (
     <>
@@ -47,14 +51,16 @@ const Navbar = () => {
           About
         </NavLink>
       </li>
-      <li>
-        <NavLink
-          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
-          to="/login"
-        >
-          Login
-        </NavLink>
-      </li>
+      {!user && (
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? activeLinkDesign : '')}
+            to="/login"
+          >
+            Login
+          </NavLink>
+        </li>
+      )}
     </>
   );
   return (
@@ -94,12 +100,11 @@ const Navbar = () => {
         </div>
         <div className="navbar-end">
           <NavLink
-            to="/register"
-            className={({ isActive }) =>
-              isActive ? activeLinkDesign : 'btn btn-accent text-white'
-            }
+            onClick={user ? () => signOut(auth) : ''}
+            to={user ? '/' : '/register'}
+            className="btn btn-accent text-white"
           >
-            Get started
+            {user ? 'Sign Out' : 'Get started'}
           </NavLink>
         </div>
       </div>

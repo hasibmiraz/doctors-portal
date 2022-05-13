@@ -30,14 +30,12 @@ const AppointmentBanner = ({ date, setDate }) => {
             className="w-full md:w-1/2 rounded-lg shadow-2xl"
             alt="Dentist Chair"
           />
-          <div className="w-full md:w-1/2">
-            <DayPicker
-              mode="single"
-              selected={date}
-              onSelect={setDate}
-              footer={selectMessage}
-            />
-          </div>
+          <DayPicker
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            footer={selectMessage}
+          />
         </div>
       </div>
     </div>

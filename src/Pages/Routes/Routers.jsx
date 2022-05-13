@@ -5,6 +5,7 @@ import Appointment from '../Appointment/Appointment';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
+import RequireAuth from '../Login/RequireAuth';
 
 const Routers = () => {
   return (
@@ -14,7 +15,14 @@ const Routers = () => {
         <Route path="/about" element={<About />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/appointment" element={<Appointment />} />
+        <Route
+          path="/appointment"
+          element={
+            <RequireAuth>
+              <Appointment />
+            </RequireAuth>
+          }
+        />
       </Routes>
     </div>
   );

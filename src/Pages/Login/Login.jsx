@@ -2,12 +2,16 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init.js';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn.jsx';
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
     useSignInWithEmailAndPassword(auth);
+
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || '/';
 
   const {
     register,
@@ -15,8 +19,9 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const handleLogin = ({ email, password }) => {
-    signInWithEmailAndPassword(email, password);
+  const handleLogin = async ({ email, password }) => {
+    await signInWithEmailAndPassword(email, password);
+    navigate(from, { replace: true });
   };
 
   let errorMessage;
