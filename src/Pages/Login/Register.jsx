@@ -5,15 +5,15 @@ import {
   useUpdateProfile,
 } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init.js';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn.jsx';
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
-  const [updateProfile] = useUpdateProfile(auth);
-  //   const [signInWithGoogle, googleUser, googleLoading, googleError] =
-  //     useSignInWithGoogle(auth);
+  const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+  const navigate = useNavigate();
 
   const {
     register,
@@ -21,14 +21,15 @@ const Register = () => {
     handleSubmit,
   } = useForm();
 
-  const handleLogin = async ({ email, password, name }) => {
+  const onSubmit = async ({ email, password, name }) => {
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
+    navigate('/appointment');
   };
 
   let errorMessage;
 
-  if (error) {
+  if (error || updateError) {
     errorMessage = (
       <p className="text-red-600 text-center">Authentication failed</p>
     );
@@ -42,7 +43,7 @@ const Register = () => {
         <div className="card-body">
           <h2 className="text-center text-xl">Sign Up</h2>
 
-          <form onSubmit={handleSubmit(handleLogin)}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div className="w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Name</span>
@@ -159,9 +160,9 @@ const Register = () => {
                 )}
               </p>
             </div>
-            {error && errorMessage}
+            {(error || updateError) && errorMessage}
             <button
-              disabled={loading}
+              disabled={loading || updating}
               className={`btn w-full max-w-xs text-white ${
                 loading ? 'loading' : ''
               }`}
