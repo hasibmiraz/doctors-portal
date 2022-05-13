@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSendPasswordResetEmail } from 'react-firebase-hooks/auth';
 import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
 import auth from '../../firebase.init';
 
 const ResetPassword = () => {
@@ -15,25 +14,6 @@ const ResetPassword = () => {
 
   const handleLogin = async ({ email }) => {
     await sendPasswordResetEmail(email);
-    toast.promise(
-      sendPasswordResetEmail(email),
-      {
-        loading: 'Sending Email!',
-        success: 'Plase check your email!',
-        error: "Couldn't send email!",
-      },
-      {
-        style: {
-          minWidth: '250px',
-          background: '#0FCFEC',
-          color: 'white',
-        },
-        success: {
-          duration: 4000,
-          icon: '🔥',
-        },
-      }
-    );
   };
 
   let errorMessage;
