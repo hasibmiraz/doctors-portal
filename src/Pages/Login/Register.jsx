@@ -1,13 +1,19 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
+import {
+  useCreateUserWithEmailAndPassword,
+  useUpdateProfile,
+} from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init.js';
 import { Link } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn.jsx';
 
-const Login = () => {
-  const [signInWithEmailAndPassword, user, loading, error] =
-    useSignInWithEmailAndPassword(auth);
+const Register = () => {
+  const [createUserWithEmailAndPassword, user, loading, error] =
+    useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
+  const [updateProfile] = useUpdateProfile(auth);
+  //   const [signInWithGoogle, googleUser, googleLoading, googleError] =
+  //     useSignInWithGoogle(auth);
 
   const {
     register,
@@ -15,8 +21,9 @@ const Login = () => {
     handleSubmit,
   } = useForm();
 
-  const handleLogin = ({ email, password }) => {
-    signInWithEmailAndPassword(email, password);
+  const handleLogin = async ({ email, password, name }) => {
+    await createUserWithEmailAndPassword(email, password);
+    await updateProfile({ displayName: name });
   };
 
   let errorMessage;
@@ -33,9 +40,49 @@ const Login = () => {
     <div className="flex justify-center items-center h-[90vh]">
       <div className="card w-96 bg-base-100 shadow-xl">
         <div className="card-body">
-          <h2 className="text-center text-xl">Login</h2>
+          <h2 className="text-center text-xl">Sign Up</h2>
 
           <form onSubmit={handleSubmit(handleLogin)}>
+            <div className="w-full max-w-xs">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Name"
+                className={`input input-bordered w-full max-w-xs ${
+                  errors?.name?.message ? 'input-error' : ''
+                }`}
+                {...register('name', {
+                  required: {
+                    value: true,
+                    message: 'Name is required!',
+                  },
+
+                  pattern: {
+                    value: /^[a-zA-Z]{4,}(?: [a-zA-Z]+){0,2}$/,
+                    message: 'Name must be of atleast 4 characters',
+                  },
+                })}
+              />
+
+              <label className="label">
+                {errors.name?.type === 'required' && (
+                  <span className="label-text-alt text-red-600">
+                    {errors?.name?.message}
+                  </span>
+                )}
+              </label>
+              <p>
+                {errors.name?.type === 'pattern' && (
+                  <span className="label-text-alt text-red-600">
+                    {errors?.name?.message}
+                  </span>
+                )}
+              </p>
+            </div>
+
+            {/* Email field Start */}
             <div className="w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -73,7 +120,8 @@ const Login = () => {
                 )}
               </p>
             </div>
-            {/* Email field */}
+
+            {/* Email field end */}
             <div className="w-full max-w-xs">
               <label className="label">
                 <span className="label-text">Password</span>
@@ -119,14 +167,14 @@ const Login = () => {
               }`}
               type="submit"
             >
-              {loading ? 'Logging in...' : 'Login'}
+              {loading ? 'Signing up...' : 'Sign Up'}
             </button>
           </form>
 
           <p className="text-xs text-center">
-            New to doctors's portal?{' '}
+            Already have an account?{' '}
             <span className="text-secondary">
-              <Link to="/register">Create a new account</Link>
+              <Link to="/login">Login</Link>
             </span>
           </p>
 
@@ -138,4 +186,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Register;
