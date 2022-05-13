@@ -4,6 +4,7 @@ import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init.js';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn.jsx';
+import toast from 'react-hot-toast';
 
 const Login = () => {
   const [signInWithEmailAndPassword, user, loading, error] =
@@ -21,6 +22,25 @@ const Login = () => {
 
   const handleLogin = async ({ email, password }) => {
     await signInWithEmailAndPassword(email, password);
+    toast.promise(
+      signInWithEmailAndPassword(email, password),
+      {
+        loading: 'Logging in...',
+        error: "Your email or password didn't match!",
+        success: 'Logged in successfully!',
+      },
+      {
+        style: {
+          minWidth: '250px',
+          background: '#0FCFEC',
+          color: 'white',
+        },
+        success: {
+          duration: 2500,
+          icon: '✅',
+        },
+      }
+    );
   };
 
   useEffect(() => {
@@ -122,6 +142,14 @@ const Login = () => {
               </p>
             </div>
             {error && errorMessage}
+            <div className="mb-3">
+              <Link
+                to="/reset-password"
+                className="text-secondary text-xs mb-3 pl-2"
+              >
+                Forgot Password
+              </Link>
+            </div>
             <button
               disabled={loading}
               className={`btn w-full max-w-xs text-white ${
