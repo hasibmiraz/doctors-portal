@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
@@ -10,10 +10,12 @@ const GoogleSignIn = () => {
   const location = useLocation();
 
   let from = location.state?.from?.pathname || '/';
-  const googleSignIn = async () => {
-    await signInWithGoogle();
-    navigate(from, { replace: true });
-  };
+
+  useEffect(() => {
+    if (googleUser) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, googleUser]);
 
   let errorMessage;
 
@@ -28,7 +30,7 @@ const GoogleSignIn = () => {
       {googleError && errorMessage}
       <button
         disabled={googleLoading}
-        onClick={googleSignIn}
+        onClick={() => signInWithGoogle()}
         className={`btn btn-outline ${googleLoading ? 'loading' : ''}`}
       >
         {googleLoading ? '' : 'Continue With Google'}

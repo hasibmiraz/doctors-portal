@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useSignInWithEmailAndPassword } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init.js';
@@ -21,8 +21,13 @@ const Login = () => {
 
   const handleLogin = async ({ email, password }) => {
     await signInWithEmailAndPassword(email, password);
-    navigate(from, { replace: true });
   };
+
+  useEffect(() => {
+    if (user) {
+      navigate(from, { replace: true });
+    }
+  }, [from, navigate, user]);
 
   let errorMessage;
 
