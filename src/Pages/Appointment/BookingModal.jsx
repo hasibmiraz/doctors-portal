@@ -1,15 +1,39 @@
-import { format } from 'date-fns';
 import React from 'react';
+import { format } from 'date-fns';
 import { useAuthState } from 'react-firebase-hooks/auth';
 import auth from '../../firebase.init';
 
 const BookingModal = ({ treatment, setTreatment, date }) => {
-  const { name, slots } = treatment;
+  const { _id, name, slots } = treatment;
   const [user] = useAuthState(auth);
+  const formattedDate = format(date, 'PP');
 
   const handleBooking = (e) => {
     e.preventDefault();
-    setTreatment(null);
+    const slot = e.target.slot.value;
+    const phone = e.target.phone.value;
+    const booking = {
+      bookingId: _id,
+      treatment: name,
+      date: formattedDate,
+      slot,
+      patientEmail: user.email,
+      patientName: user.displayName,
+      phone,
+    };
+
+    fetch('http://localhost:5000/booking', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(booking),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTreatment(null);
+      });
   };
 
   return (
@@ -56,6 +80,8 @@ const BookingModal = ({ treatment, setTreatment, date }) => {
               className="input input-bordered w-full"
             />
             <input
+              required
+              name="phone"
               type="text"
               placeholder="Phone Number"
               className="input input-bordered w-full"
