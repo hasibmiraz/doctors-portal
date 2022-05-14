@@ -61,6 +61,25 @@ const Navbar = () => {
           </NavLink>
         </li>
       )}
+      {user && (
+        <li>
+          <NavLink
+            className={({ isActive }) => (isActive ? activeLinkDesign : '')}
+            to="/dashboard"
+          >
+            Dashboard
+          </NavLink>
+        </li>
+      )}
+      <li>
+        <Link
+          className="text-center"
+          onClick={user ? () => signOut(auth) : ''}
+          to={user ? '/' : '/register'}
+        >
+          {user ? 'Sign Out' : 'Get started'}
+        </Link>
+      </li>
     </>
   );
   return (
@@ -99,13 +118,25 @@ const Navbar = () => {
           <ul className="menu menu-horizontal p-0">{menuItem}</ul>
         </div>
         <div className="navbar-end">
-          <NavLink
-            onClick={user ? () => signOut(auth) : ''}
-            to={user ? '/' : '/register'}
-            className="btn btn-accent text-white"
+          <label
+            htmlFor="dasboard-sidebar"
+            tabIndex="1"
+            className="btn btn-ghost lg:hidden"
           >
-            {user ? 'Sign Out' : 'Get started'}
-          </NavLink>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              className="inline-block w-5 h-5 stroke-current"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                d="M4 6h16M4 12h16M4 18h16"
+              ></path>
+            </svg>
+          </label>
         </div>
       </div>
     </div>

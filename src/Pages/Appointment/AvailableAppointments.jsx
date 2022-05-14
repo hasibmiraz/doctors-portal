@@ -1,28 +1,40 @@
 import { format } from 'date-fns';
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useQuery } from 'react-query';
 import Spinner from '../Shared/Spinner';
 import BookingModal from './BookingModal';
 import Service from './Service';
 
 const AvailableAppointments = ({ date }) => {
-  const [services, setServices] = useState([]);
-  const [loading, setLoading] = useState(false);
+  // const [services, setServices] = useState([]);
+  // const [loading, setLoading] = useState(false);
   const [treatment, setTreatment] = useState(null);
 
   const formattedDate = format(date, 'PP');
 
-  useEffect(() => {
-    setLoading(true);
-    fetch(`http://localhost:5000/available?date=${formattedDate}`)
-      .then((res) => res.json())
-      .then((data) => {
-        setServices(data);
-        setLoading(false);
-      });
-  }, [formattedDate]);
+  const {
+    isLoading,
+    data: services,
+    refetch,
+  } = useQuery(['available', formattedDate], () =>
+    fetch(`http://localhost:5000/available?date=${formattedDate}`).then((res) =>
+      res.json()
+    )
+  );
+  if (isLoading) return <Spinner />;
+
+  // useEffect(() => {
+  //   setLoading(true);
+  //   fetch(`http://localhost:5000/available?date=${formattedDate}`)
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       setServices(data);
+  //       setLoading(false);
+  //     });
+  // }, [formattedDate]);
   return (
     <div>
-      {loading ? (
+      {isLoading ? (
         <Spinner />
       ) : (
         <>
@@ -43,6 +55,7 @@ const AvailableAppointments = ({ date }) => {
               date={date}
               treatment={treatment}
               setTreatment={setTreatment}
+              refetch={refetch}
             />
           )}
         </>

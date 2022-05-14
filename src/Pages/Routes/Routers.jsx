@@ -2,6 +2,9 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from '../About/About';
 import Appointment from '../Appointment/Appointment';
+import Dashboard from '../Dashboard/Dashboard';
+import MyAppointments from '../Dashboard/MyAppointments';
+import MyReview from '../Dashboard/MyReview';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
@@ -25,6 +28,17 @@ const Routers = () => {
             </RequireAuth>
           }
         />
+        <Route
+          path="/dashboard"
+          element={
+            <RequireAuth>
+              <Dashboard />
+            </RequireAuth>
+          }
+        >
+          <Route index element={<MyAppointments />} />
+          <Route path="review" element={<MyReview />} />
+        </Route>
       </Routes>
     </div>
   );
