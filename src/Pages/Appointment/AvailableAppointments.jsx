@@ -9,15 +9,17 @@ const AvailableAppointments = ({ date }) => {
   const [loading, setLoading] = useState(false);
   const [treatment, setTreatment] = useState(null);
 
+  const formattedDate = format(date, 'PP');
+
   useEffect(() => {
     setLoading(true);
-    fetch('http://localhost:5000/service')
+    fetch(`http://localhost:5000/available?date=${formattedDate}`)
       .then((res) => res.json())
       .then((data) => {
         setServices(data);
         setLoading(false);
       });
-  }, []);
+  }, [formattedDate]);
   return (
     <div>
       {loading ? (
