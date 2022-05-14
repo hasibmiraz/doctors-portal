@@ -4,6 +4,7 @@ import About from '../About/About';
 import Appointment from '../Appointment/Appointment';
 import Dashboard from '../Dashboard/Dashboard';
 import MyAppointments from '../Dashboard/MyAppointments';
+import MyHistory from '../Dashboard/MyHistory';
 import MyReview from '../Dashboard/MyReview';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
@@ -38,6 +39,7 @@ const Routers = () => {
         >
           <Route index element={<MyAppointments />} />
           <Route path="review" element={<MyReview />} />
+          <Route path="history" element={<MyHistory />} />
         </Route>
       </Routes>
     </div>
