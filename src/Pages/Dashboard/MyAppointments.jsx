@@ -14,7 +14,6 @@ const MyAppointments = () => {
   }, [user]);
   return (
     <div>
-      <h2 className="mx-3">My appointment: {appointments.length}</h2>
       <div class="overflow-x-auto mx-auto my-3 w-11/12">
         <table class="table table-zebra w-full">
           {/* <!-- head --> */}
