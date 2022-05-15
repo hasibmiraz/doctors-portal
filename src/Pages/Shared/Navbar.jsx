@@ -72,13 +72,13 @@ const Navbar = () => {
         </li>
       )}
       <li>
-        <Link
-          className="text-center"
+        <NavLink
+          className={({ isActive }) => (isActive ? activeLinkDesign : '')}
           onClick={user ? () => signOut(auth) : ''}
           to={user ? '/' : '/register'}
         >
           {user ? 'Sign Out' : 'Get started'}
-        </Link>
+        </NavLink>
       </li>
     </>
   );

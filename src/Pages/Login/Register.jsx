@@ -7,11 +7,14 @@ import {
 import auth from '../../firebase.init.js';
 import { Link, useNavigate } from 'react-router-dom';
 import GoogleSignIn from './GoogleSignIn.jsx';
+import useToken from '../../hooks/useToken.js';
 
 const Register = () => {
   const [createUserWithEmailAndPassword, user, loading, error] =
     useCreateUserWithEmailAndPassword(auth, { sendEmailVerification: true });
   const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+  const [token] = useToken(user);
 
   const navigate = useNavigate();
 
@@ -24,7 +27,6 @@ const Register = () => {
   const onSubmit = async ({ email, password, name }) => {
     await createUserWithEmailAndPassword(email, password);
     await updateProfile({ displayName: name });
-    navigate('/appointment');
   };
 
   let errorMessage;
@@ -35,7 +37,9 @@ const Register = () => {
     );
   }
 
-  if (user) console.dir(user);
+  if (token) {
+    navigate('/appointment');
+  }
 
   return (
     <div className="flex justify-center items-center h-[90vh]">

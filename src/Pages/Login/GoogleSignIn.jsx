@@ -2,20 +2,22 @@ import React, { useEffect } from 'react';
 import { useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import { useLocation, useNavigate } from 'react-router-dom';
 import auth from '../../firebase.init';
+import useToken from '../../hooks/useToken';
 
 const GoogleSignIn = () => {
   const [signInWithGoogle, googleUser, googleLoading, googleError] =
     useSignInWithGoogle(auth);
   const navigate = useNavigate();
   const location = useLocation();
+  const [token] = useToken(googleUser);
 
   let from = location.state?.from?.pathname || '/';
 
   useEffect(() => {
-    if (googleUser) {
+    if (token) {
       navigate(from, { replace: true });
     }
-  }, [from, navigate, googleUser]);
+  }, [from, navigate, token]);
 
   let errorMessage;
 
@@ -25,6 +27,7 @@ const GoogleSignIn = () => {
     );
   }
   if (googleUser) console.dir(googleUser);
+
   return (
     <>
       {googleError && errorMessage}
