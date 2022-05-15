@@ -9,6 +9,11 @@ const Navbar = () => {
     'btn bg-secondary text-white my-2 mx-0 md:my-0 md:mx-2 border-none';
   const [user] = useAuthState(auth);
 
+  const handleSignOut = () => {
+    signOut(auth);
+    localStorage.removeItem('accessToken');
+  };
+
   const menuItem = (
     <>
       <li>
@@ -74,7 +79,7 @@ const Navbar = () => {
       <li>
         <NavLink
           className={({ isActive }) => (isActive ? activeLinkDesign : '')}
-          onClick={user ? () => signOut(auth) : ''}
+          onClick={user ? handleSignOut : ''}
           to={user ? '/' : '/register'}
         >
           {user ? 'Sign Out' : 'Get started'}
