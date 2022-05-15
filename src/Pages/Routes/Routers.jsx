@@ -6,6 +6,7 @@ import Dashboard from '../Dashboard/Dashboard';
 import MyAppointments from '../Dashboard/MyAppointments';
 import MyHistory from '../Dashboard/MyHistory';
 import MyReview from '../Dashboard/MyReview';
+import Users from '../Dashboard/Users';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
@@ -40,6 +41,7 @@ const Routers = () => {
           <Route index element={<MyAppointments />} />
           <Route path="review" element={<MyReview />} />
           <Route path="history" element={<MyHistory />} />
+          <Route path="users" element={<Users />} />
         </Route>
       </Routes>
     </div>
