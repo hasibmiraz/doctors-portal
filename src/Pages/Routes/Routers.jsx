@@ -10,6 +10,7 @@ import Users from '../Dashboard/Users';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
 import Register from '../Login/Register';
+import RequireAdmin from '../Login/RequireAdmin';
 import RequireAuth from '../Login/RequireAuth';
 import ResetPassword from '../Login/ResetPassword';
 
@@ -41,7 +42,14 @@ const Routers = () => {
           <Route index element={<MyAppointments />} />
           <Route path="review" element={<MyReview />} />
           <Route path="history" element={<MyHistory />} />
-          <Route path="users" element={<Users />} />
+          <Route
+            path="users"
+            element={
+              <RequireAdmin>
+                <Users />
+              </RequireAdmin>
+            }
+          />
         </Route>
       </Routes>
     </div>

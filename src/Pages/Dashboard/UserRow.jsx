@@ -11,11 +11,17 @@ const UserRow = ({ user, index, refetch }) => {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 403) {
+          toast.error(`You're not eligible to perform this action!`);
+        }
+        return res.json();
+      })
       .then((data) => {
-        console.log(data);
-        toast.success(`${email} is now an admin!`);
-        refetch();
+        if (data.modifiedCount) {
+          toast.success(`${email} is now an admin!`);
+          refetch();
+        }
       });
   };
   return (
