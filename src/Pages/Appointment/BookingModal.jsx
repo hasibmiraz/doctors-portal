@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, setTreatment, date, refetch }) => {
       phone,
     };
 
-    fetch('http://localhost:5000/booking', {
+    fetch('https://gentle-plains-18586.herokuapp.com/booking', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',

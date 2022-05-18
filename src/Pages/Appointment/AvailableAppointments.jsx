@@ -17,15 +17,15 @@ const AvailableAppointments = ({ date }) => {
     data: services,
     refetch,
   } = useQuery(['available', formattedDate], () =>
-    fetch(`http://localhost:5000/available?date=${formattedDate}`).then((res) =>
-      res.json()
-    )
+    fetch(
+      `https://gentle-plains-18586.herokuapp.com/available?date=${formattedDate}`
+    ).then((res) => res.json())
   );
   if (isLoading) return <Spinner />;
 
   // useEffect(() => {
   //   setLoading(true);
-  //   fetch(`http://localhost:5000/available?date=${formattedDate}`)
+  //   fetch(`https://gentle-plains-18586.herokuapp.com/available?date=${formattedDate}`)
   //     .then((res) => res.json())
   //     .then((data) => {
   //       setServices(data);
