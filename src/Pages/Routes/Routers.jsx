@@ -2,7 +2,9 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 import About from '../About/About';
 import Appointment from '../Appointment/Appointment';
+import AddDoctor from '../Dashboard/AddDoctor';
 import Dashboard from '../Dashboard/Dashboard';
+import ManageDoctors from '../Dashboard/ManageDoctors';
 import MyAppointments from '../Dashboard/MyAppointments';
 import MyHistory from '../Dashboard/MyHistory';
 import MyReview from '../Dashboard/MyReview';
@@ -47,6 +49,22 @@ const Routers = () => {
             element={
               <RequireAdmin>
                 <Users />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="add-doctor"
+            element={
+              <RequireAdmin>
+                <AddDoctor />
+              </RequireAdmin>
+            }
+          />
+          <Route
+            path="manage-doctor"
+            element={
+              <RequireAdmin>
+                <ManageDoctors />
               </RequireAdmin>
             }
           />
