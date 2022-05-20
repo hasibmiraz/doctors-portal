@@ -17,7 +17,9 @@ const AddDoctor = () => {
   const imgStorageKey = '38c11282e9730e96bcbadae736068ef6';
 
   const { data: services, isLoading } = useQuery('services', () =>
-    fetch(`http://localhost:5000/service`).then((res) => res.json())
+    fetch(`https://gentle-plains-18586.herokuapp.com/service`).then((res) =>
+      res.json()
+    )
   );
 
   const onSubmit = async ({ image, name, email, specialty }) => {
@@ -34,7 +36,7 @@ const AddDoctor = () => {
         if (success) {
           const img = data.url;
           const doctor = { name, email, specialty, image: img };
-          fetch('http://localhost:5000/doctor', {
+          fetch('https://gentle-plains-18586.herokuapp.com/doctor', {
             method: 'POST',
             headers: {
               'content-type': 'application/json',

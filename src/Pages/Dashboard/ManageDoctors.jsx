@@ -5,8 +5,12 @@ import Title from '../Title/Title';
 import DoctorsRow from './DoctorsRow';
 
 const ManageDoctors = () => {
-  const { data: doctors, isLoading } = useQuery('doctors', () =>
-    fetch('http://localhost:5000/doctor', {
+  const {
+    data: doctors,
+    isLoading,
+    refetch,
+  } = useQuery('doctors', () =>
+    fetch('https://gentle-plains-18586.herokuapp.com/doctor', {
       method: 'GET',
       headers: {
         authorization: `Bearer ${localStorage.getItem('accessToken')}`,
@@ -36,7 +40,12 @@ const ManageDoctors = () => {
             <tbody>
               {/* <!-- row 1 --> */}
               {doctors.map((doctor, index) => (
-                <DoctorsRow key={doctor._id} doctor={doctor} index={index} />
+                <DoctorsRow
+                  key={doctor._id}
+                  doctor={doctor}
+                  index={index}
+                  refetch={refetch}
+                />
               ))}
             </tbody>
             {/* <!-- foot --> */}
