@@ -40,8 +40,6 @@ const Login = () => {
     );
   }
 
-  if (user) console.dir(user);
-
   return (
     <>
       <Title title="Login" />

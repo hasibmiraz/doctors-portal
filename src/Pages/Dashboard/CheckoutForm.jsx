@@ -86,7 +86,6 @@ const CheckoutForm = ({ appointment }) => {
       })
         .then((res) => res.json())
         .then((data) => {
-          console.log(data);
           setLoading(false);
         });
     }
