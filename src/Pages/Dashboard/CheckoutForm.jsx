@@ -13,7 +13,7 @@ const CheckoutForm = ({ appointment }) => {
   const [clientSecret, setClientSecret] = useState('');
 
   useEffect(() => {
-    fetch('http://localhost:5000/create-payment-intent', {
+    fetch('https://gentle-plains-18586.herokuapp.com/create-payment-intent', {
       method: 'POST',
       headers: {
         'content-type': 'application/json',
@@ -76,7 +76,7 @@ const CheckoutForm = ({ appointment }) => {
         transactionId: paymentIntent.id,
       };
 
-      fetch(`http://localhost:5000/booking/${_id}`, {
+      fetch(`https://gentle-plains-18586.herokuapp.com/booking/${_id}`, {
         method: 'PATCH',
         headers: {
           'content-type': 'application/json',
