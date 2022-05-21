@@ -3,7 +3,7 @@ import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { toast } from 'react-toastify';
 
 const CheckoutForm = ({ appointment }) => {
-  const { price, patientName, patientEmail } = appointment;
+  const { price, patientName, patientEmail, _id } = appointment;
   const stripe = useStripe();
   const elements = useElements();
   const [cardError, setCardError] = useState('');
@@ -62,13 +62,33 @@ const CheckoutForm = ({ appointment }) => {
 
     if (intentError) {
       setCardError(intentError.message);
+
+      setLoading(false);
       setSuccess('');
     } else {
       setCardError('');
       setSuccess('Congratulations! Your payment has been completed.');
       setTransactionId(paymentIntent.id);
       toast.success('Congratulations! Your payment has been completed.');
-      setLoading(false);
+
+      const payment = {
+        appointment: _id,
+        transactionId: paymentIntent.id,
+      };
+
+      fetch(`http://localhost:5000/booking/${_id}`, {
+        method: 'PATCH',
+        headers: {
+          'content-type': 'application/json',
+          authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+        },
+        body: JSON.stringify(payment),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          setLoading(false);
+        });
     }
   };
 
