@@ -8,6 +8,7 @@ import ManageDoctors from '../Dashboard/ManageDoctors';
 import MyAppointments from '../Dashboard/MyAppointments';
 import MyHistory from '../Dashboard/MyHistory';
 import MyReview from '../Dashboard/MyReview';
+import Payment from '../Dashboard/Payment';
 import Users from '../Dashboard/Users';
 import Home from '../Home/Home';
 import Login from '../Login/Login';
@@ -58,6 +59,14 @@ const Routers = () => {
               <RequireAdmin>
                 <AddDoctor />
               </RequireAdmin>
+            }
+          />
+          <Route
+            path="payment/:appointmentId"
+            element={
+              <RequireAuth>
+                <Payment />
+              </RequireAuth>
             }
           />
           <Route
